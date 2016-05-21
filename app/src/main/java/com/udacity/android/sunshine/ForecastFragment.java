@@ -49,6 +49,9 @@ public class ForecastFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_refresh) {
+            //execute acyntasc with calling weather API
+            FetchWeatherTask fetchWeatherTask = new FetchWeatherTask();
+            fetchWeatherTask.execute();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -76,11 +79,6 @@ public class ForecastFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         ListView listview_forecast = (ListView) view.findViewById(R.id.listview_forecast);
         listview_forecast.setAdapter(mForecastAdapter);
-
-        //execure acyntasc with calling weather API
-        FetchWeatherTask fetchWeatherTask = new FetchWeatherTask();
-        fetchWeatherTask.execute();
-
 
         return view;
     }
