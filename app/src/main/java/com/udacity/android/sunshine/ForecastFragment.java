@@ -39,6 +39,8 @@ public class ForecastFragment extends Fragment {
     String forecastJsonStr = null;
     int numDays = 7;
     String[] finishedForecast = null;
+    String[] forecastArray = null;
+    ArrayAdapter<String> mForecastAdapter;
 
     public ForecastFragment() {
     }
@@ -58,7 +60,7 @@ public class ForecastFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_refresh) {
-            //execute acyntasc with calling weather API
+            //execute acynctask with calling weather API
             FetchWeatherTask fetchWeatherTask = new FetchWeatherTask();
             fetchWeatherTask.execute("Dnepropetrovsk");
             return true;
@@ -69,7 +71,7 @@ public class ForecastFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //fake data for listview
-        String[] forecastArray = {
+        forecastArray = new String[]{
                 "Today - Sunny - 12",
                 "Tuesday - Sunny - 13",
                 "Wednesday - Sunny - 12",
@@ -82,7 +84,7 @@ public class ForecastFragment extends Fragment {
         List<String> weekForecats = new ArrayList<String>(Arrays.asList(forecastArray));
 
         //adapter for forecast listview
-        ArrayAdapter<String> mForecastAdapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item_forecast, R.id.list_item_forecast_textview, weekForecats);
+        mForecastAdapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item_forecast, R.id.list_item_forecast_textview, weekForecats);
 
         //reference adapter to listview
         View view = inflater.inflate(R.layout.fragment_main, container, false);
@@ -175,6 +177,16 @@ public class ForecastFragment extends Fragment {
                 e.printStackTrace();
             }
             return finishedForecast;
+        }
+
+        @Override
+        protected void onPostExecute(String[] result) {
+            if (result != null){
+                mForecastAdapter.clear();
+                for (String dayForecastStr : result){
+                    mForecastAdapter.add(dayForecastStr);
+                }
+            }
         }
     }
 
