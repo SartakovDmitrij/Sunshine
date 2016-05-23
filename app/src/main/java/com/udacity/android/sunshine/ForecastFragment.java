@@ -12,8 +12,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -90,6 +93,14 @@ public class ForecastFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         ListView listview_forecast = (ListView) view.findViewById(R.id.listview_forecast);
         listview_forecast.setAdapter(mForecastAdapter);
+
+        listview_forecast.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView tv = (TextView) view.findViewById(R.id.list_item_forecast_textview);
+                Toast.makeText(getActivity(), tv.getText().toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return view;
     }
