@@ -1,5 +1,6 @@
 package com.udacity.android.sunshine;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,8 +16,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -97,8 +96,11 @@ public class ForecastFragment extends Fragment {
         listview_forecast.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TextView tv = (TextView) view.findViewById(R.id.list_item_forecast_textview);
-                Toast.makeText(getActivity(), tv.getText().toString(), Toast.LENGTH_SHORT).show();
+//                TextView tv = (TextView) view.findViewById(R.id.list_item_forecast_textview);
+//                Toast.makeText(getActivity(), tv.getText().toString(), Toast.LENGTH_SHORT).show();
+                Intent detailIntent = new Intent(getActivity(), DetailActivity.class);
+                detailIntent.putExtra(Intent.EXTRA_TEXT, mForecastAdapter.getItem(position));
+                startActivity(detailIntent);
             }
         });
 
