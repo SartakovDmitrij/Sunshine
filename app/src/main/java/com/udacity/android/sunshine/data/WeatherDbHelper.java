@@ -42,10 +42,10 @@ public class WeatherDbHelper extends SQLiteOpenHelper {
 
         final String SQL_CREATE_LOCATION_TABLE = "CREATE TABLE " + LocationEntry.TABLE_NAME + " (" +
                 LocationEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                LocationEntry.COLUMN_LOCATION_SETTING + " REAL NOT NULL, " +
+                LocationEntry.COLUMN_LOCATION_SETTING + " TEXT UNIQUE NOT NULL, " +
                 LocationEntry.COLUMN_LATITUDE + " REAL NOT NULL, " +
                 LocationEntry.COLUMN_LONGITUDE + " REAL NOT NULL, " +
-                LocationEntry.COLUMN_CITY + " TEXT NOT NULL;";
+                LocationEntry.COLUMN_CITY + " TEXT NOT NULL);";
         db.execSQL(SQL_CREATE_LOCATION_TABLE);
     }
 
